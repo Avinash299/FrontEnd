@@ -1,6 +1,9 @@
 i {
     white-space: nowrap;
   }
+  a.i {
+    float: right;
+  }
   th[ng-reflect-sortable] {
     cursor: pointer;
     user-select: none;

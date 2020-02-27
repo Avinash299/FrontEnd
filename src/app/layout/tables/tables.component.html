@@ -1,6 +1,7 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Tables'" [icon]="'fa-table'"></app-page-header>
-    <div class="row">
+<app-ngbd-table [columns]="columns" [records]="records" [showActions]="true"></app-ngbd-table>
+    <!-- <div class="row">
         <div class="col col-xl-6 col-lg-12">
             <div class="card mb-3">
                 <div class="card-header">
@@ -350,5 +351,5 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>

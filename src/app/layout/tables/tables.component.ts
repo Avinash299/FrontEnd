@@ -8,7 +8,66 @@ import { routerTransition } from '../../router.animations';
     animations: [routerTransition()]
 })
 export class TablesComponent implements OnInit {
+    columns=[];
+    records=[];
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.columns.push({
+            displayName:"Name",
+            dbName:"name"
+        })
+        this.columns.push({
+            displayName:"Age",
+            dbName:"age"
+        })
+        this.records.push({
+            "age":20,
+            "name":"Avinash"
+        })
+        this.records.push({
+            "age":21,
+            "name":"Avinash"
+        })
+        this.records.push({
+            "age":20,
+            "name":"Avinash"
+        })
+        this.records.push({
+            "age":21,
+            "name":"Avinash"
+        })
+        this.records.push({
+            "age":20,
+            "name":"Avinash"
+        })
+        this.records.push({
+            "age":21,
+            "name":"Avinash"
+        })
+        this.records.push({
+            "age":20,
+            "name":"Avinash"
+        })
+        this.records.push({
+            "age":21,
+            "name":"Avinash"
+        })
+        this.records.push({
+            "age":20,
+            "name":"Avinash"
+        })
+        this.records.push({
+            "age":21,
+            "name":"Avinash"
+        })
+        this.records.push({
+            "age":20,
+            "name":"Avinash"
+        })
+        this.records.push({
+            "age":21,
+            "name":"Avinash"
+        })
+    }
 }

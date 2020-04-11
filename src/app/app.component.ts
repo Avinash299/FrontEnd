@@ -7,7 +7,7 @@ import { LoadingService } from './services/loading.service';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    constructor(private loadingService:LoadingService) {
+    constructor(public loadingService:LoadingService) {
     }
 
     ngOnInit() {

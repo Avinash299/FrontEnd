@@ -4,6 +4,7 @@ import { routerTransition } from '../router.animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storege.service';
+import { TosterService } from '../services/toster.service';
 
 @Component({
     selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
     constructor(  private formBuilder: FormBuilder,
         private router: Router,
         private authService: AuthService,
+        private toaster: TosterService,
         private tokenService: TokenStorageService) {}
 
     ngOnInit() {
@@ -44,15 +46,16 @@ export class LoginComponent implements OnInit {
                         this.tokenService.saveToken(data.token);
                         this.tokenService.saveUser(data.data);
                         this.router.navigate(['/dashboard']);
+                        this.toaster.success(data.msg,'Login');
 
                     }else{
-                        // this.toastr.showError(data.msg,'Login');
+                        this.toaster.warning(data.msg,'Login');
                     }
                      
                 },
                 error => {
-                 
-         });
+                    this.toaster.error(error.error.msg,'Login');
+                });
         }
     
     }

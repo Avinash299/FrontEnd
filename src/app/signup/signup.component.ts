@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { MustMatch } from '../interceptor/must-match.validator';
+import { TosterService } from '../services/toster.service';
 
 @Component({
     selector: 'app-signup',
@@ -17,6 +18,7 @@ export class SignupComponent implements OnInit {
 
     constructor(  private formBuilder: FormBuilder,
         private router: Router,
+        private toaster: TosterService,
         private authService: AuthService,) {}
 
     ngOnInit() {
@@ -42,12 +44,18 @@ export class SignupComponent implements OnInit {
             this.authService.register(this.registerForm.value)
             .subscribe(
                 data => {
-                    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
-                     this.router.navigate(['/dashboard']);
+                    if(data.success) {
+                        this.router.navigate(['/login']);
+                        this.toaster.success(data.msg,'Register');
+
+                    }else{
+                        this.toaster.warning(data.msg,'Register');
+                    }
+                     
                 },
                 error => {
-                 
-         });
+                    this.toaster.error(error.error.msg,'Register');
+                });
         }
     
     }

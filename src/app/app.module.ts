@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { LoadingHttpInterceptor } from './interceptor/loading.interceptor';
+import { ToastNotificationsModule } from 'ngx-toast-notifications';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { LoadingHttpInterceptor } from './interceptor/loading.interceptor';
         HttpClientModule,
         LanguageTranslationModule,
         AppRoutingModule, 
-        
+        ToastNotificationsModule.forRoot({duration: 6000, position: 'top-right'})
+
     ],
     declarations: [AppComponent],
     providers: [AuthGuard,{

@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
-    //BrowserModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -18,6 +17,5 @@ import { RouterModule } from '@angular/router';
   ],
   declarations: [NgbdTableComplete, NgbdSortableHeader],
   exports: [NgbdTableComplete]
-//   bootstrap: [NgbdTableComplete]
 })
 export class NgbdTableCompleteModule {}

@@ -12,13 +12,15 @@ import { NgbdSortableHeader, SortEvent } from '../../directive/sortable.directiv
 })
 export class NgbdTableComplete {
     @Input() records: any = [];
-    @Input() total: number = 30;
+    @Input() total: number = 0;
     @Input() columns: any = [];
     public pageSize: number = 5;
     public page: number = 1;
     public searchTerm: string = "";
     @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
     @Input() showActions: boolean = false;
+    @Input() showSearch: boolean = true;
+    @Input() showAddBtn: boolean = true;
     public previousPage:any;
     constructor() {
 

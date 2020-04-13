@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { TableModule } from 'ngx-easy-table';
 import { NgbdSortableHeader } from '../../directive/sortable.directive';
 import { NgbdTableComplete } from '../tables/tables.component';
 import { RouterModule } from '@angular/router';
@@ -13,7 +12,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule,RouterModule
+    NgbModule,RouterModule,TableModule
   ],
   declarations: [NgbdTableComplete, NgbdSortableHeader],
   exports: [NgbdTableComplete]

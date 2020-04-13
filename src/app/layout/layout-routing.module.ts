@@ -10,9 +10,10 @@ const routes: Routes = [
             { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
             { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
             { path: 'charts', loadChildren: () => import('./charts/charts.module').then(m => m.ChartsModule) },
-
+            { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
         ]
-    }
+    },
+    
 ];
 
 @NgModule({

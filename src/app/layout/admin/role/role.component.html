@@ -1,43 +1,7 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Role'" [icon]="'fa fa-pencil'"></app-page-header>
-    <div class="card">
-        <form class="card-body" [formGroup]="roleForm" (ngSubmit)="onSubmit()">
-            <div class="row">
-                <div class="form-group col-md-4">
-                    <label>Role Name</label>
-                    <input type="text" formControlName="name" class="form-control"
-                        [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                        <div *ngIf="f.name.errors.required">Role is required</div>
-                    </div>
-                </div>
-                <div class="form-group col-md-4">
-                    <label>Modules</label>
-                    <app-multi-select  name="modules" [placeholder]="'Select Modules'" formControlName="modules" [settings]="dropdownSettings"
-                        [data]="moduleList">
-                    </app-multi-select>
-                    <div *ngIf="submitted && f.modules.errors" class="error">
-                        <div *ngIf="f.modules.errors.required">Modules is required</div>
-                    </div>
-                </div>
-                <div class="form-group col-md-4">
-                    <label>Permissions</label>
-                    <app-multi-select name="permissions" [placeholder]="'Select Permissions'" formControlName="permissions" [settings]="dropdownSettings"
-                    [data]="permissionList">
-                 </app-multi-select>
-                    <div *ngIf="submitted && f.permissions.errors" class="error">
-                        <div *ngIf="f.permissions.errors.required">Permissions is required</div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary mr-1">Save</button>
-            </div>
-        </form>
-        <div>
-            <app-ngx-table  [columns]="columns" [data]="data" [serverPagination]="false" [count]="data.length"
-            (onPageChange)="onPageChange($event)" (edit)="onEdit($event)" [showActions]="true"></app-ngx-table>
-        </div>
-    </div>
+    
+        <app-ngx-table  [columns]="columns" [data]="data" [serverPagination]="false" [count]="data.length"
+        (onPageChange)="onPageChange($event)" (onAdd)="onAdd()" (onEdit)="onEdit($event)" [showActions]="true"></app-ngx-table>
 </div>
 

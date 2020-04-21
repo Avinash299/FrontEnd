@@ -5,9 +5,10 @@ import { AdminComponent } from './admin.component';
 import { RoleComponent } from './role/role.component';
 import { NgbdTableCompleteModule, StatModule, PageHeaderModule, MultiSelectModule } from 'src/app/shared';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddEditRoleComponent } from './role/add-edit-role/add-edit-role.component';
 
 @NgModule({
-  declarations: [AdminComponent, RoleComponent],
+  declarations: [AdminComponent, RoleComponent, AddEditRoleComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

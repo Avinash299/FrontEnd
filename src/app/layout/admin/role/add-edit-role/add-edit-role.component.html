@@ -1,0 +1,50 @@
+<div class="card" [@routerTransition]>
+    <app-page-header [heading]="'Role Save'" [icon]="'fa fa-pencil'"></app-page-header>
+    <form *ngIf="loading" class="card-body" [formGroup]="roleForm">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>Role Name</label>
+                <input type="text" formControlName="name" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                    <div *ngIf="f.name.errors.required">Role is required</div>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label>User Permissions</label>
+                <app-multi-select  name="userPermission" [placeholder]="' '" formControlName="userPermission" [settings]="dropdownSettings"
+                    [data]="userPermission">
+                </app-multi-select>
+                <div *ngIf="submitted && f.userPermission.errors" class="error">
+                    <div *ngIf="f.userPermission.errors.required">User permissions is required</div>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label>Dashbaord Permissions</label>
+                <app-multi-select name="dashbaordPermission" [placeholder]="' '" formControlName="dashbaordPermission" [settings]="dropdownSettings"
+                [data]="dashbaordPermission">
+             </app-multi-select>
+                <div *ngIf="submitted && f.dashbaordPermission.errors" class="error">
+                    <div *ngIf="f.dashbaordPermission.errors.required"> Dashboard Permissions is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>Chart Permissions</label>
+                <app-multi-select  name="chartPermission" [placeholder]="' '" formControlName="chartPermission" [settings]="dropdownSettings"
+                    [data]="chartPermission">
+                </app-multi-select>
+                <div *ngIf="submitted && f.chartPermission.errors" class="error">
+                    <div *ngIf="f.chartPermission.errors.required">Chart permissions is required</div>
+                </div>
+            </div>
+          
+        </div>
+        <div class="text-center">
+            <button type="submit" (click)="onSubmit()" class="btn btn-primary mr-1">Save</button>
+            <button type="cancel" (click)="backClicked()" class="btn btn-danger mr-1">Cancel</button>
+        </div>
+    </form>
+  
+</div>

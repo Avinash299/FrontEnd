@@ -21,4 +21,7 @@ export class RoleService {
   add(role): Observable<any> {
     return this.http.post(AUTH_API + 'role/add',role, httpOptions);
   }
+  getRoleById(id): Observable<any> {
+    return this.http.get(AUTH_API + 'role/get/'+id,httpOptions);
+  }
 }

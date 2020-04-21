@@ -1,7 +1,7 @@
 <div class="row col-md-12">
     <div class="col-md-8">
-        <input type="text"  (input)="onChange($event.target.value)" placeholder="Global Search" aria-label="Global Search">
-    </div>
+        <input class="form-control" type="text" name="search" (input)="onChange($event.target.value)" autocomplete="off" placeholder="Search">
+      </div>
     <div class="col-md-2">
         <button class="col-md-1" type="button" (click)="csvExportWhole()" class="btn btn-info">
             <span class="glyphicon glyphicon-search"></span> Export CSV
@@ -15,7 +15,11 @@
 </div>
 
 <div class="column col-12">
-    <ngx-table [configuration]="configuration" [data]="data" #table [columns]="columns">
+    <ngx-table *ngIf="!serverPagination" [configuration]="configuration" [data]="data" #table [columns]="columns">
+    </ngx-table>
+
+    <ngx-table  *ngIf="serverPagination" [configuration]="configuration" [pagination]="pagination" (event)="eventEmitted($event)" [data]="data"
+        #table [columns]="columns">
     </ngx-table>
 
     <ng-template #actionTpl let-row let-rowIndex="rowIndex">

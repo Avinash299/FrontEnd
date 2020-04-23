@@ -69,7 +69,6 @@ export class MultiSelectComponent implements ControlValueAccessor {
   }
   @Input()
   disabled = false;
-
   @Input()
   public set settings(value: IDropdownSettings) {
     if (value) {
@@ -117,7 +116,8 @@ export class MultiSelectComponent implements ControlValueAccessor {
     this.filterChange.emit($event);
   }
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef) {
+  }
 
   onItemClick($event: any, item: ListItem) {
     if (this.disabled || item.isDisabled) {

@@ -25,9 +25,9 @@
     <ng-template #actionTpl let-row let-rowIndex="rowIndex">
         <i style="font-size: medium;margin: 5px;color: green;" class="fa fa-pencil-square" (click)="edit(row)"></i>
         <i style="font-size: medium;margin: 5px;color: red;" class="fa fa-trash" (click)="remove(row)"></i>
-        <i style="font-size: medium;margin: 5px;color: red;" *ngIf="!row.isActive" class="fa fa-toggle-off"
-            aria-hidden="true" (click)="makeActive(row)"></i>
-        <i style="font-size: medium;margin: 5px;color: green;" *ngIf="row.isActive" class="fa fa-toggle-on"
-            aria-hidden="true" (click)="makeDeactive(row)"></i>
+        <i style="font-size: medium;margin: 5px;color: red;" *ngIf="!row.active" class="fa fa-toggle-off"
+            aria-hidden="true" (click)="activeDeactive(row)"></i>
+        <i style="font-size: medium;margin: 5px;color: green;" *ngIf="row.active" class="fa fa-toggle-on"
+            aria-hidden="true" (click)="activeDeactive(row)"></i>
     </ng-template>
 </div>

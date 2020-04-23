@@ -17,7 +17,7 @@ export class AddEditRoleComponent implements OnInit {
   submitted = false;
   data:any=[];
   userPermission:any[];
-  dashbaordPermission:any[];
+  dashboardPermission:any[];
   chartPermission:any[];
   id:any;
   loading:boolean=false;
@@ -35,7 +35,7 @@ export class AddEditRoleComponent implements OnInit {
         { id: 3, text: 'Edit' },
         { id: 4, text: 'Delete'}
       ]
-      this.dashbaordPermission = [
+      this.dashboardPermission = [
         { id: 1, text: 'Add' },
         { id: 2, text: 'View' },
         { id: 3, text: 'Edit' },
@@ -62,7 +62,7 @@ export class AddEditRoleComponent implements OnInit {
   createRoleForm(){
     this.roleForm = this.formBuilder.group({
       name: ['', [Validators.required]],
-      dashbaordPermission: [[], [Validators.required,Validators.minLength(1)]],
+      dashboardPermission: [[], [Validators.required,Validators.minLength(1)]],
       userPermission: [[]],
       chartPermission: [[]],
     });
@@ -89,7 +89,7 @@ export class AddEditRoleComponent implements OnInit {
     if (this.roleForm.invalid) {
       return;
     } else {
-      this.roleService.add(this.roleForm.value)
+      this.roleService.save(this.roleForm.value,this.id)
       .subscribe(
           data => {
               if(data.success) {

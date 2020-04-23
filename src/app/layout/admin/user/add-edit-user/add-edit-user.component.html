@@ -1,0 +1,115 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'User Save'" [icon]="'fa fa-pencil'"></app-page-header>
+    <form *ngIf="loading" [formGroup]="userForm">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>UserName</label>
+                <input type="text" formControlName="username" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                    <div *ngIf="f.username.errors.required">User name is required</div>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label>email</label>
+                <input type="text" formControlName="email" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.hasError('pattern')">Please enter valid email</div>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label>Mobile</label>
+                <input type="number" minlength="10" maxlength="10" formControlName="mobile" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" />
+                <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                    <div *ngIf="f.mobile.errors.required">Mobile is required</div>
+                    <div *ngIf="f.mobile.hasError('pattern')">Please enter valid number</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>Birth Date</label>
+                <div class="input-group">
+                    <input type="date" class="form-control" name="dp"
+                        [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" formControlName="dob">
+                </div>
+                <div *ngIf="submitted && f.dob.errors" class="error">
+                    <div *ngIf="f.dob.errors.required">Birth date is required</div>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label>Password</label>
+                <input type="password" formControlName="password" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">Password is required</div>
+                    <div *ngIf="f.password.hasError('pattern')">Password contains 1 capital,1 small alphabeat,
+                        1 numerical,1 special symbol with atleast 6 digit long. </div>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label>Country</label>
+                <app-multi-select name="country" [placeholder]="' '" formControlName="country"
+                    [settings]="dropdownSettings" [data]="country" (select)="onCountrySelect($event)">
+                </app-multi-select>
+                <div *ngIf="submitted && f.country.errors" class="error">
+                    <div *ngIf="f.country.errors.required">Country is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>State</label>
+                <app-multi-select name="state" [placeholder]="' '" formControlName="state" [settings]="dropdownSettings"
+                    [data]="state" (select)="onStateSelect($event)">
+                </app-multi-select>
+                <div *ngIf="submitted && f.state.errors" class="error">
+                    <div *ngIf="f.state.errors.required">State is required</div>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label>City</label>
+                <app-multi-select name="city" [placeholder]="' '" formControlName="city" [settings]="dropdownSettings"
+                    [data]="city">
+                </app-multi-select>
+                <div *ngIf="submitted && f.city.errors" class="error">
+                    <div *ngIf="f.city.errors.required">City is required</div>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label>Pin Code</label>
+                <input type="text" formControlName="pin" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.pin.errors }" />
+                <div *ngIf="submitted && f.pin.errors" class="invalid-feedback">
+                    <div *ngIf="f.pin.errors.required">Pin is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label>Address Line1</label>
+                <input type="addressLine1" formControlName="addressLine1" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.addressLine1.errors }" />
+                <div *ngIf="submitted && f.addressLine1.errors" class="invalid-feedback">
+                    <div *ngIf="f.addressLine1.errors.required">Address Line1 is required</div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Address Line2</label>
+                <input type="addressLine2" formControlName="addressLine2" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.addressLine2.errors }" />
+                <div *ngIf="submitted && f.addressLine2.errors" class="invalid-feedback">
+                    <div *ngIf="f.addressLine2.errors.required">Address Line2 is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" (click)="onSubmit()" class="btn btn-primary mr-1">Save</button>
+            <button type="cancel" (click)="backClicked()" class="btn btn-danger mr-1">Cancel</button>
+        </div>
+    </form>
+
+</div>

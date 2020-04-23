@@ -1,5 +1,5 @@
 import { Columns, DefaultConfig, API, APIDefinition, Config } from 'ngx-easy-table';
-import { Component, ViewChild, TemplateRef, ChangeDetectionStrategy, Input, ChangeDetectorRef, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, TemplateRef, ChangeDetectionStrategy, Input, ChangeDetectorRef, OnInit, OnDestroy, Output, EventEmitter, DoCheck } from '@angular/core';
 import { ExportToCsv } from 'export-to-csv';
 import { Subject } from 'rxjs';
 interface EventObject {
@@ -16,13 +16,13 @@ interface EventObject {
     changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class NgbdTableComplete implements OnInit, OnDestroy {
+export class NgbdTableComplete implements OnInit, DoCheck, OnDestroy {
     public pagination = {
         limit: 10,
         offset: 0,
         count: -1,
     };
-
+    iterableDiffer: any;
     @Input() showActions: boolean = false;
     @Input() showSearch: boolean = true;
     @Input() showAddBtn: boolean = true;
@@ -52,9 +52,13 @@ export class NgbdTableComplete implements OnInit, OnDestroy {
         useKeysAsHeaders: true,
     };
     public configuration: Config;
-    constructor(private cdr: ChangeDetectorRef) { 
+    constructor(private cdr: ChangeDetectorRef) {
+
     }
-  
+
+    ngDoCheck() {
+        this.cdr.markForCheck();
+    }
     ngOnInit(): void {
         this.configuration = { ...DefaultConfig };
         this.configuration.searchEnabled = true;
@@ -66,6 +70,7 @@ export class NgbdTableComplete implements OnInit, OnDestroy {
             this.pagination.count = this.count;
         }
     }
+
     onChange(name: string): void {
         this.table.apiEvent({
             type: API.onGlobalSearch, value: name,
@@ -80,11 +85,7 @@ export class NgbdTableComplete implements OnInit, OnDestroy {
         this.onDelete.emit(row);
 
     }
-    makeActive(row) {
-        this.onActiveDeactive.emit(row);
-
-    }
-    makeDeactive(row) {
+    activeDeactive(row) {
         this.onActiveDeactive.emit(row);
     }
     edit(row) {
@@ -92,7 +93,10 @@ export class NgbdTableComplete implements OnInit, OnDestroy {
     }
     public csvExportWhole(): void {
         const csvExporter = new ExportToCsv(this.csvOptions);
-        csvExporter.generateCsv(this.data);
+        let csvData = this.data.filter(function( obj ) {
+            return  delete obj._id;
+        });
+        csvExporter.generateCsv(csvData);
     }
     ngOnDestroy(): void {
         this.ngUnsubscribe.next();

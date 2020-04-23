@@ -6,9 +6,12 @@ import { RoleComponent } from './role/role.component';
 import { NgbdTableCompleteModule, StatModule, PageHeaderModule, MultiSelectModule } from 'src/app/shared';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddEditRoleComponent } from './role/add-edit-role/add-edit-role.component';
+import { UserComponent } from './user/user.component';
+import { AddEditUserComponent } from './user/add-edit-user/add-edit-user.component';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [AdminComponent, RoleComponent, AddEditRoleComponent],
+  declarations: [AdminComponent, RoleComponent, AddEditRoleComponent, UserComponent, AddEditUserComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -17,7 +20,8 @@ import { AddEditRoleComponent } from './role/add-edit-role/add-edit-role.compone
     ReactiveFormsModule,
     StatModule,
     PageHeaderModule,
-    MultiSelectModule
+    MultiSelectModule,
+    NgbDatepickerModule.forRoot()
   ]
 })
 export class AdminModule { }

@@ -29,6 +29,7 @@
     "@ngx-translate/http-loader": "4.0.0",
     "chart.js": "2.7.3",
     "core-js": "2.5.7",
+    "country-state-city": "^1.0.4",
     "export-to-csv": "^0.2.1",
     "font-awesome": "4.7.0",
     "ng2-charts": "2.3.0",

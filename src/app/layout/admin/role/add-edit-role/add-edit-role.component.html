@@ -1,6 +1,6 @@
-<div class="card" [@routerTransition]>
+<div [@routerTransition]>
     <app-page-header [heading]="'Role Save'" [icon]="'fa fa-pencil'"></app-page-header>
-    <form *ngIf="loading" class="card-body" [formGroup]="roleForm">
+    <form *ngIf="loading"  [formGroup]="roleForm">
         <div class="row">
             <div class="form-group col-md-4">
                 <label>Role Name</label>
@@ -20,12 +20,12 @@
                 </div>
             </div>
             <div class="form-group col-md-4">
-                <label>Dashbaord Permissions</label>
-                <app-multi-select name="dashbaordPermission" [placeholder]="' '" formControlName="dashbaordPermission" [settings]="dropdownSettings"
-                [data]="dashbaordPermission">
+                <label>Dashboard Permissions</label>
+                <app-multi-select name="dashboardPermission" [placeholder]="' '" formControlName="dashboardPermission" [settings]="dropdownSettings"
+                [data]="dashboardPermission">
              </app-multi-select>
-                <div *ngIf="submitted && f.dashbaordPermission.errors" class="error">
-                    <div *ngIf="f.dashbaordPermission.errors.required"> Dashboard Permissions is required</div>
+                <div *ngIf="submitted && f.dashboardPermission.errors" class="error">
+                    <div *ngIf="f.dashboardPermission.errors.required"> Dashboard Permissions is required</div>
                 </div>
             </div>
         </div>

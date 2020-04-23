@@ -12,15 +12,15 @@ import { RoleService } from 'src/app/services/role.service';
 
 })
 export class RoleComponent implements OnInit {
-   columns: any[];
-   data:any=[];
-  constructor(private roleService:RoleService,
+  columns: any[];
+  data: any = [];
+  constructor(private roleService: RoleService,
     private router: Router, private toaster: TosterService) {
-      this.getRoles();
-     }
+    this.getRoles();
+  }
 
-  ngOnInit(): void  {
-     this.columns = [
+  ngOnInit(): void {
+    this.columns = [
       { key: 'name', title: "Role Name" },
     ]
   }
@@ -30,22 +30,49 @@ export class RoleComponent implements OnInit {
 
 
   getRoles() {
-      this.roleService.get().subscribe(data => {
-              if(data.success) {
-                 this.data=data.data;
-              }else{
-                  this.toaster.warning(data.msg,'Role');
-              }
-          },
-          error => {
-              this.toaster.error(error.error.msg,'Role');
-          });
-    }
-   
-    onEdit(event){
-      this.router.navigateByUrl('/admin/role-addEdit',{ state: event._id });
-    }
-    onAdd(){
-      this.router.navigate(['/admin/role-addEdit']);
-    }
+    this.roleService.get().subscribe(data => {
+      if (data.success) {
+        this.data = data.data;
+      } else {
+        this.toaster.warning(data.msg, 'Role');
+      }
+    },
+      error => {
+        this.toaster.error(error.error.msg, 'Role');
+      });
+  }
+
+  onEdit(event) {
+    this.router.navigateByUrl('/admin/role-addEdit', { state: event._id });
+  }
+  onAdd() {
+    this.router.navigate(['/admin/role-addEdit']);
+  }
+  onActiveDeactive(event) {
+    this.roleService.activeDeactive(event._id, !event.active).subscribe(data => {
+      if (data.success) {
+        event.active = !event.active;
+        this.toaster.success(data.msg, 'Role');
+      } else {
+        this.toaster.warning(data.msg, 'Role');
+      }
+    },
+      error => {
+        this.toaster.error(error.error.msg, 'Role');
+      });
+  }
+  onDelete(event) {
+    this.roleService.deleteUser(event._id).subscribe(data => {
+      if (data.success) {
+        this.toaster.success(data.msg, 'Role');
+        let updatedData = this.data.filter(item => item._id !== event._id);
+        this.data = updatedData;
+      } else {
+        this.toaster.warning(data.msg, 'Role');
+      }
+    },
+      error => {
+        this.toaster.error(error.error.msg, 'Role');
+      });
+  }
 }

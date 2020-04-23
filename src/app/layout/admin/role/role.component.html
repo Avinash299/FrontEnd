@@ -1,7 +1,7 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Role'" [icon]="'fa fa-pencil'"></app-page-header>
-    
-        <app-ngx-table  [columns]="columns" [data]="data" [serverPagination]="false" [count]="data.length"
-        (onPageChange)="onPageChange($event)" (onAdd)="onAdd()" (onEdit)="onEdit($event)" [showActions]="true"></app-ngx-table>
-</div>
 
+    <app-ngx-table [columns]="columns" [data]="data" [serverPagination]="false" [count]="data.length"
+        (onPageChange)="onPageChange($event)" (onActiveDeactive)="onActiveDeactive($event)"
+        (onDelete)="onDelete($event)" (onAdd)="onAdd()" (onEdit)="onEdit($event)" [showActions]="true"></app-ngx-table>
+</div>

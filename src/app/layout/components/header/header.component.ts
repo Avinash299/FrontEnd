@@ -53,4 +53,7 @@ export class HeaderComponent implements OnInit {
     changeLang(language: string) {
         this.translate.use(language);
     }
+    onProfile(){
+        this.router.navigateByUrl('/admin/user-addEdit', { state: this.userInfo.id });
+    }
 }

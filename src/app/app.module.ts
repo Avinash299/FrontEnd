@@ -19,7 +19,7 @@ import { ToastNotificationsModule } from 'ngx-toast-notifications';
         HttpClientModule,
         LanguageTranslationModule,
         AppRoutingModule, 
-        ToastNotificationsModule.forRoot({duration: 6000, position: 'top-right'}),
+        ToastNotificationsModule.forRoot({duration: 3000, position: 'top-right'}),
 
     ],
     declarations: [AppComponent],

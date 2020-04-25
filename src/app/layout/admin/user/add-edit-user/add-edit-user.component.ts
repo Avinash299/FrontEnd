@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
 import { TosterService } from 'src/app/services/toster.service';
 import { Location } from '@angular/common';
 import { routerTransition } from 'src/app/router.animations';
-import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import csc from 'country-state-city'
 import { ICountry, IState, ICity } from 'country-state-city'
+import { TokenStorageService } from 'src/app/services/token-storege.service';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -22,9 +22,10 @@ export class AddEditUserComponent implements OnInit {
   model2:any;
   id: any;
   loading: boolean = false;
-  country:any=[];
-  state:any=[];
-  city:any=[];
+  country:Array<ICountry>=[];
+  state:Array<IState>=[];
+  city:Array<ICity>=[];
+  fieldTextType: boolean= false;
   dropdownSettings = {
     singleSelection: true,
     itemsShowLimit: 2,
@@ -35,7 +36,7 @@ export class AddEditUserComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private userService: UserService,
     private router: Router, private toaster: TosterService, private _location: Location,
-    private calendar: NgbCalendar) {
+    private tokenService:TokenStorageService) {
     this.id = this.router.getCurrentNavigation().extras.state;
     this.createUserForm();
     if (this.id) {
@@ -52,23 +53,16 @@ export class AddEditUserComponent implements OnInit {
     this.userForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email,Validators.pattern(/^(\d{10}|\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3}))$/)]],
-      dob: [null, [Validators.required]],
+      dob: ['', [Validators.required]],
       mobile: ['', [Validators.required, Validators.pattern(/^(\d{10}|\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3}))$/)]],
       password: ['', [Validators.required, Validators.minLength(6),Validators.pattern(/^(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}$/)]],
-      country:[''],
-      city: [''],
-      state: [''],
+      country:[[]],
+      city: [[]],
+      state: [[]],
       pin: [''],
       addressLine1: [''],
       addressLine2: [''],
     });
-    this.userForm.controls['dob'].valueChanges.subscribe( data => {
-    if(!data || (typeof data === 'string' && data.length == 0)) {
-      this.userForm.patchValue({
-        dob: null
-      }, {emitEvent: false});
-    }
-  });
   }
 
   get f() { return this.userForm.controls; }
@@ -76,6 +70,7 @@ export class AddEditUserComponent implements OnInit {
   getUser() {
     this.userService.getUserById(this.id).subscribe(data => {
       if (data.success) {
+        data.data.password= this.tokenService.decrypt(data.data.password);
         this.userForm.patchValue(data.data);
         this.loading = true;
       } else {
@@ -92,6 +87,7 @@ export class AddEditUserComponent implements OnInit {
     if (this.userForm.invalid) {
       return;
     } else {
+      this.userForm.value.password= this.tokenService.encrypt( this.userForm.value.password);
       this.userService.save(this.userForm.value, this.id)
         .subscribe(
           data => {
@@ -110,19 +106,16 @@ export class AddEditUserComponent implements OnInit {
   backClicked() {
     this._location.back();
   }
-  dateChanged() {
-    let dateField = this.userForm.get('dob')
-    if (dateField.valid) {
-      console.log('Date field is valid')
-    } else {
-      console.log('Date field is invalid')
-    }
-    console.log('Date field value: ', dateField.value)
-  }
+  
   onCountrySelect(event){
     this.state=csc.getStatesOfCountry(event.id);
   }
   onStateSelect(event){
     this.city=csc.getCitiesOfState(event.id);
   }
+
+
+toggleFieldTextType() {
+  this.fieldTextType = !this.fieldTextType;
+}
 }

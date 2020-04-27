@@ -1,5 +1,5 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Role Save'" [icon]="'fa fa-pencil'"></app-page-header>
+    <app-page-header [heading]="'Role Save'" [icon]="'fa fa-universal-access'"></app-page-header>
     <form *ngIf="loading"  [formGroup]="roleForm">
         <div class="row">
             <div class="form-group col-md-4">
@@ -11,21 +11,21 @@
                 </div>
             </div>
             <div class="form-group col-md-4">
-                <label>User Permissions</label>
-                <app-multi-select  name="userPermission" [placeholder]="' '" formControlName="userPermission" [settings]="dropdownSettings"
-                    [data]="userPermission">
-                </app-multi-select>
-                <div *ngIf="submitted && f.userPermission.errors" class="error">
-                    <div *ngIf="f.userPermission.errors.required">User permissions is required</div>
-                </div>
-            </div>
-            <div class="form-group col-md-4">
                 <label>Dashboard Permissions</label>
                 <app-multi-select name="dashboardPermission" [placeholder]="' '" formControlName="dashboardPermission" [settings]="dropdownSettings"
                 [data]="dashboardPermission">
              </app-multi-select>
                 <div *ngIf="submitted && f.dashboardPermission.errors" class="error">
                     <div *ngIf="f.dashboardPermission.errors.required"> Dashboard Permissions is required</div>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label>User Permissions</label>
+                <app-multi-select  name="userPermission" [placeholder]="' '" formControlName="userPermission" [settings]="dropdownSettings"
+                    [data]="userPermission">
+                </app-multi-select>
+                <div *ngIf="submitted && f.userPermission.errors" class="error">
+                    <div *ngIf="f.userPermission.errors.required">User permissions is required</div>
                 </div>
             </div>
         </div>

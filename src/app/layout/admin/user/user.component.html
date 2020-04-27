@@ -1,5 +1,5 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Role'" [icon]="'fa fa-pencil'"></app-page-header>
+    <app-page-header [heading]="'Users'" [icon]="'fa fa-user-circle'"></app-page-header>
     
         <app-ngx-table  [columns]="columns" [data]="data" [serverPagination]="false" [count]="data.length"
         (onPageChange)="onPageChange($event)" (onActiveDeactive)="onActiveDeactive($event)" (onDelete)="onDelete($event)" (onAdd)="onAdd()" (onEdit)="onEdit($event)" [showActions]="true"></app-ngx-table>

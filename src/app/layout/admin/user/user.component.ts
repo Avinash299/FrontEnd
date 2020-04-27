@@ -40,7 +40,7 @@ export class UserComponent implements OnInit {
       }
     },
       error => {
-        this.toaster.error(error.error.msg, 'User');
+        this.toaster.error(error.error, 'User');
       });
   }
 
@@ -60,7 +60,7 @@ export class UserComponent implements OnInit {
       }
     },
       error => {
-        this.toaster.error(error.error.msg, 'User');
+        this.toaster.error(error.error, 'User');
       });
   }
   onDelete(event) {
@@ -74,7 +74,7 @@ export class UserComponent implements OnInit {
       }
     },
       error => {
-        this.toaster.error(error.error.msg, 'User');
+        this.toaster.error(error.error, 'User');
       });
   }
 }

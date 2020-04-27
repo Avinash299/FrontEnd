@@ -19,13 +19,13 @@ export class AddEditUserComponent implements OnInit {
   userForm: FormGroup;
   submitted = false;
   data: any = [];
-  model2:any;
+  model2: any;
   id: any;
   loading: boolean = false;
-  country:Array<ICountry>=[];
-  state:Array<IState>=[];
-  city:Array<ICity>=[];
-  fieldTextType: boolean= false;
+  country: Array<ICountry> = [];
+  state: Array<IState> = [];
+  city: Array<ICity> = [];
+  fieldTextType: boolean = false;
   dropdownSettings = {
     singleSelection: true,
     itemsShowLimit: 2,
@@ -36,7 +36,7 @@ export class AddEditUserComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private userService: UserService,
     private router: Router, private toaster: TosterService, private _location: Location,
-    private tokenService:TokenStorageService) {
+    private tokenService: TokenStorageService) {
     this.id = this.router.getCurrentNavigation().extras.state;
     this.createUserForm();
     if (this.id) {
@@ -47,16 +47,16 @@ export class AddEditUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.country=csc.getAllCountries();
+    this.country = csc.getAllCountries();
   }
   createUserForm() {
     this.userForm = this.formBuilder.group({
       username: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email,Validators.pattern(/^(\d{10}|\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3}))$/)]],
+      email: ['', [Validators.required, Validators.email, Validators.pattern(/^(\d{10}|\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3}))$/)]],
       dob: ['', [Validators.required]],
       mobile: ['', [Validators.required, Validators.pattern(/^(\d{10}|\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3}))$/)]],
-      password: ['', [Validators.required, Validators.minLength(6),Validators.pattern(/^(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}$/)]],
-      country:[[]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z]).{8,30}$/)]],
+      country: [[]],
       city: [[]],
       state: [[]],
       pin: [''],
@@ -70,7 +70,7 @@ export class AddEditUserComponent implements OnInit {
   getUser() {
     this.userService.getUserById(this.id).subscribe(data => {
       if (data.success) {
-        data.data.password= this.tokenService.decrypt(data.data.password);
+        data.data.password = this.tokenService.decrypt(data.data.password);
         this.userForm.patchValue(data.data);
         this.loading = true;
       } else {
@@ -78,7 +78,7 @@ export class AddEditUserComponent implements OnInit {
       }
     },
       error => {
-        this.toaster.error(error.error.msg, 'User');
+        this.toaster.error(error.error, 'User');
       });
   }
 
@@ -87,7 +87,7 @@ export class AddEditUserComponent implements OnInit {
     if (this.userForm.invalid) {
       return;
     } else {
-      this.userForm.value.password= this.tokenService.encrypt( this.userForm.value.password);
+      this.userForm.value.password = this.tokenService.encrypt(this.userForm.value.password);
       this.userService.save(this.userForm.value, this.id)
         .subscribe(
           data => {
@@ -99,23 +99,25 @@ export class AddEditUserComponent implements OnInit {
             }
           },
           error => {
-            this.toaster.error(error.error.msg, 'User');
+            this.toaster.error(error.error, 'User');
           });
     }
   }
   backClicked() {
     this._location.back();
   }
-  
-  onCountrySelect(event){
-    this.state=csc.getStatesOfCountry(event.id);
+
+  onCountrySelect(event) {
+    this.state = csc.getStatesOfCountry(event.id);
+    this.userForm.controls['state'].reset();
+    this.userForm.controls['city'].reset();
   }
-  onStateSelect(event){
-    this.city=csc.getCitiesOfState(event.id);
+  onStateSelect(event) {
+    this.city = csc.getCitiesOfState(event.id);
   }
 
 
-toggleFieldTextType() {
-  this.fieldTextType = !this.fieldTextType;
-}
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
 }

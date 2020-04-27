@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-dashboard',
@@ -10,8 +11,9 @@ import { routerTransition } from '../../router.animations';
 export class DashboardComponent implements OnInit {
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
-
-    constructor() {
+    url: string = "https://news.google.com/topstories?hl=en-IN&gl=IN&ceid=IN:en";
+    urlSafe: SafeResourceUrl;
+    constructor(public sanitizer: DomSanitizer) {
         this.sliders.push(
             {
                 imagePath: 'assets/images/slider1.jpg',
@@ -52,7 +54,9 @@ export class DashboardComponent implements OnInit {
         );
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.urlSafe= this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
+    }
 
     public closeAlert(alert: any) {
         const index: number = this.alerts.indexOf(alert);

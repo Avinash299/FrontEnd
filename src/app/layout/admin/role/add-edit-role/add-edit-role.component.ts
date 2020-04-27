@@ -80,7 +80,7 @@ export class AddEditRoleComponent implements OnInit {
             }
         },
         error => {
-            this.toaster.error(error.error.msg,'Role');
+            this.toaster.error(error.error,'Role');
         });
   }
 
@@ -100,7 +100,7 @@ export class AddEditRoleComponent implements OnInit {
               }
           },
           error => {
-              this.toaster.error(error.error.msg,'Role');
+              this.toaster.error(error.error,'Role');
           });
     }
   }

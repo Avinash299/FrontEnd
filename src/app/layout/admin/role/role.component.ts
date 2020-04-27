@@ -38,7 +38,7 @@ export class RoleComponent implements OnInit {
       }
     },
       error => {
-        this.toaster.error(error.error.msg, 'Role');
+        this.toaster.error(error.error, 'Role');
       });
   }
 
@@ -58,7 +58,7 @@ export class RoleComponent implements OnInit {
       }
     },
       error => {
-        this.toaster.error(error.error.msg, 'Role');
+        this.toaster.error(error.error, 'Role');
       });
   }
   onDelete(event) {
@@ -72,7 +72,7 @@ export class RoleComponent implements OnInit {
       }
     },
       error => {
-        this.toaster.error(error.error.msg, 'Role');
+        this.toaster.error(error.error, 'Role');
       });
   }
 }

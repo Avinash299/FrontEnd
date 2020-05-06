@@ -42,7 +42,7 @@
             </div>
             <div class="form-group col-md-4">
                 <label>Password</label>
-                <div class="input-group mb-3">
+                <div class="input-group mb-1">
                     <input [type]="fieldTextType ? 'text' : 'password'" formControlName="password" class="form-control"
                         [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
                     <span class="input-group-text">
@@ -52,7 +52,7 @@
                           }" (click)="toggleFieldTextType()"></i>
                     </span>
                 </div>
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <div *ngIf="submitted && f.password.errors" class="error">
                     <div *ngIf="f.password.errors.required">Password is required</div>
                     <div *ngIf="f.password.hasError('pattern')">Password contains 1 capital,1 small alphabeat,
                         1 numerical,1 special symbol with atleast 6 digit long. </div>

@@ -18,7 +18,7 @@ import { ToastNotificationsModule } from 'ngx-toast-notifications';
         BrowserAnimationsModule,
         HttpClientModule,
         LanguageTranslationModule,
-        AppRoutingModule, 
+        AppRoutingModule,
         ToastNotificationsModule.forRoot({duration: 3000, position: 'top-right'}),
 
     ],

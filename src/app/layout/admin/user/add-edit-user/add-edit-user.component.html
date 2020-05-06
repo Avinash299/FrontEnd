@@ -114,6 +114,26 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label>Role</label>
+                <app-multi-select name="role" [placeholder]="' '" formControlName="role" [settings]="dropdownSettings"
+                    [data]="role">
+                </app-multi-select>
+                <div *ngIf="submitted && f.role.errors" class="error">
+                    <div *ngIf="f.role.errors.required">Role is required</div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Reporting Manager</label>
+                <app-multi-select name="manager" [placeholder]="' '" formControlName="manager" [settings]="dropdownSettings"
+                    [data]="manager">
+                </app-multi-select>
+                <div *ngIf="submitted && f.manager.errors" class="error">
+                    <div *ngIf="f.manager.errors.required">Manager is required</div>
+                </div>
+            </div>
+        </div>
         <div class="text-center">
             <button type="submit" (click)="onSubmit()" class="btn btn-primary mr-1">Save</button>
             <button type="cancel" (click)="backClicked()" class="btn btn-danger mr-1">Cancel</button>

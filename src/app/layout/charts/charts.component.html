@@ -1,6 +1,18 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Charts'" [icon]="'fa-bar-chart-o'"></app-page-header>
     <div class="row">
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Organisation Chart
+                </div>
+                <div class="card-body" style="height: 300px;overflow-y: scroll;">
+                    <angular-org-chart id="orgChartId" [data]="orgData"></angular-org-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col col-sm-6">
             <div class="card mb-3">
                 <div class="card-header">

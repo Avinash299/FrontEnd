@@ -8,6 +8,8 @@ import { routerTransition } from 'src/app/router.animations';
 import csc from 'country-state-city'
 import { ICountry, IState, ICity } from 'country-state-city'
 import { TokenStorageService } from 'src/app/services/token-storege.service';
+import { forkJoin } from 'rxjs';
+import { RoleService } from 'src/app/services/role.service';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -25,6 +27,8 @@ export class AddEditUserComponent implements OnInit {
   country: Array<ICountry> = [];
   state: Array<IState> = [];
   city: Array<ICity> = [];
+  role: Array<any> = [];
+  manager: Array<any> = [];
   fieldTextType: boolean = false;
   dropdownSettings = {
     singleSelection: true,
@@ -36,8 +40,13 @@ export class AddEditUserComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private userService: UserService,
     private router: Router, private toaster: TosterService, private _location: Location,
-    private tokenService: TokenStorageService) {
+    private tokenService: TokenStorageService,private roleService:RoleService) {
     this.id = this.router.getCurrentNavigation().extras.state;
+    this.country = csc.getAllCountries();
+    forkJoin([this.userService.get(),this.roleService.get()]).subscribe(results => {
+      this.role = this.mapDropDown(results[1].data,'_id','name');
+      this.manager = this.mapDropDown(results[0].data,'_id','username');;
+    });
     this.createUserForm();
     if (this.id) {
       this.getUser();
@@ -47,7 +56,7 @@ export class AddEditUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.country = csc.getAllCountries();
+    
   }
   createUserForm() {
     this.userForm = this.formBuilder.group({
@@ -62,6 +71,8 @@ export class AddEditUserComponent implements OnInit {
       pin: [''],
       addressLine1: [''],
       addressLine2: [''],
+      manager: [[]],
+      role: [[], [Validators.required]],
     });
   }
 
@@ -119,5 +130,13 @@ export class AddEditUserComponent implements OnInit {
 
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
+  }
+  mapDropDown(arr,id,name){
+   return arr.map(item => {
+      const obj = {};
+      obj['name'] = item[name];
+      obj['id'] = item[id];
+      return obj;
+  });
   }
 }

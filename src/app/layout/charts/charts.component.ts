@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
+import { OrgData } from 'angular-org-chart/src/app/modules/org-chart/orgData';
+import { ChartService } from 'src/app/services/chart.service';
 
 @Component({
     selector: 'app-charts',
@@ -8,6 +10,57 @@ import { routerTransition } from '../../router.animations';
     animations: [routerTransition()]
 })
 export class ChartsComponent implements OnInit {
+    //org-chart
+    orgData: OrgData= {
+        name: "Iron Man",
+        type: 'CEO',
+        children: [
+            {
+                name: "Captain America",
+                type: 'VP',
+                children: [
+                    {
+                        name: "Hawkeye",
+                        type: 'manager',
+                        children: []
+                    },
+                    {
+                        name: "Antman",
+                        type: 'Manager',
+                        children: []
+                    }
+                ]
+            },
+            {
+                name: "Black Widow",
+                type: 'VP',
+                children: [
+                    {
+                        name: "Hulk",
+                        type: 'manager',
+                        children: [
+                            {
+                                name: "Spiderman",
+                                type: 'Intern',
+                                children: []
+                            }
+                        ]
+                    },
+                    {
+                        name: "Thor",
+                        type: 'Manager',
+                        children: [
+                            {
+                                name: "Loki",
+                                type: 'Team Lead',
+                                children: []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+      };
     // bar chart
     public barChartOptions: any = {
         scaleShowVerticalLines: false,
@@ -158,7 +211,9 @@ export class ChartsComponent implements OnInit {
          */
     }
 
-    constructor() {}
+    constructor(private chartService:ChartService) {
+        this.getUserHierarchy();
+    }
 
     ngOnInit() {
         this.barChartType = 'bar';
@@ -171,4 +226,11 @@ export class ChartsComponent implements OnInit {
         this.lineChartLegend = true;
         this.lineChartType = 'line';
     }
+    getUserHierarchy() {
+        this.chartService.getUserHierarchy().subscribe(data => {
+          if (data.success) {
+            this.orgData = data.data[0];
+          } 
+        });
+      }
 }

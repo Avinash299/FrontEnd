@@ -29,7 +29,7 @@
     "@ngx-translate/http-loader": "4.0.0",
     "@types/crypto-js": "^3.1.44",
     "angular-org-chart": "^1.0.3",
-    "chart.js": "2.7.3",
+    "chart.js": "2.9.4",
     "core-js": "2.5.7",
     "country-state-city": "^1.0.4",
     "crypto-js": "^4.0.0",
